@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR" ng-app="lojaApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loja Virtual | AngularJS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body ng-controller="MainController">
+  <a href="#conteudo" class="pular-link">Pular para o conteúdo</a>
+
+  <header class="cabecalho">
+    <div class="cabecalho-conteudo">
+      <p class="logo">Loja Virtual</p>
+      <nav class="menu" aria-label="Menu principal">
+        <ul>
+          <li><a href="#produtos">Produtos</a></li>
+          <li><a href="#detalhes">Detalhes</a></li>
+          <li><a href="#faq">Dúvidas</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo" class="conteudo">
+    <h1 class="pular-link">Loja Virtual</h1>
+
+    <section class="card card-largo">
+      <h2>{{ mensagem }}</h2>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p>© 2026 Loja Virtual. Atividade de Tópicos Avançados em Programação.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/angular@1.8.3/angular.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/controllers/main.controller.js"></script>
+</body>
+</html>
