@@ -25,8 +25,25 @@
   <main id="conteudo" class="conteudo">
     <h1 class="pular-link">Loja Virtual</h1>
 
-    <section class="card card-largo">
-      <h2>{{ mensagem }}</h2>
+    <section id="produtos" class="card card-largo" aria-labelledby="titulo-produtos">
+      <h2 id="titulo-produtos">Produtos</h2>
+
+      <div class="filtros">
+        <div class="busca">
+          <label for="busca">Buscar produto</label>
+          <input id="busca" type="search" ng-model="busca" placeholder="Ex.: fone">
+        </div>
+      </div>
+
+      <p class="resultado">{{ filtrados().length }} produto(s) encontrado(s)</p>
+
+      <ul class="produtos">
+        <li class="produto" ng-repeat="produto in filtrados()">
+          <h3>{{ produto.nome }}</h3>
+          <p>{{ produto.categoria }}</p>
+          <p class="preco">{{ produto.preco | moeda }}</p>
+        </li>
+      </ul>
     </section>
   </main>
 
@@ -36,6 +53,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/angular@1.8.3/angular.min.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/services/produto.service.js"></script>
+  <script src="js/filters/moeda.filter.js"></script>
   <script src="js/controllers/main.controller.js"></script>
 </body>
 </html>
