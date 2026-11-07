@@ -45,6 +45,16 @@
         </li>
       </ul>
     </section>
+
+    <section class="card" aria-labelledby="titulo-upload">
+      <h2 id="titulo-upload">Enviar foto do produto</h2>
+      <progress-bar valor="progresso" label="Upload da imagem"></progress-bar>
+      <div class="botoes">
+        <button class="botao" ng-click="iniciarUpload()" ng-disabled="enviando">
+          {{ enviando ? 'Enviando...' : 'Simular upload' }}
+        </button>
+      </div>
+    </section>
   </main>
 
   <footer class="rodape">
@@ -55,6 +65,7 @@
   <script src="js/app.js"></script>
   <script src="js/services/produto.service.js"></script>
   <script src="js/filters/moeda.filter.js"></script>
+  <script src="js/directives/progress-bar.directive.js"></script>
   <script src="js/controllers/main.controller.js"></script>
 </body>
 </html>
