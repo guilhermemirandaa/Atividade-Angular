@@ -42,6 +42,7 @@
           <h3>{{ produto.nome }}</h3>
           <p>{{ produto.categoria }}</p>
           <p class="preco">{{ produto.preco | moeda }}</p>
+          <button class="botao" ng-click="adicionarAoCarrinho(produto)">Adicionar ao carrinho</button>
         </li>
       </ul>
     </section>
@@ -55,17 +56,31 @@
         </button>
       </div>
     </section>
+
+    <section class="card" aria-labelledby="titulo-notificacoes">
+      <h2 id="titulo-notificacoes">Notificações</h2>
+      <p>Veja os três tipos de aviso da loja.</p>
+      <div class="botoes">
+        <button class="botao botao-sucesso" ng-click="notificar('Pedido confirmado!', 'sucesso')">Sucesso</button>
+        <button class="botao botao-erro" ng-click="notificar('Pagamento recusado.', 'erro')">Erro</button>
+        <button class="botao botao-info" ng-click="notificar('Frete grátis hoje.', 'info')">Info</button>
+      </div>
+    </section>
   </main>
 
   <footer class="rodape">
     <p>© 2026 Loja Virtual. Atividade de Tópicos Avançados em Programação.</p>
   </footer>
 
+  <toast-container></toast-container>
+
   <script src="https://cdn.jsdelivr.net/npm/angular@1.8.3/angular.min.js"></script>
   <script src="js/app.js"></script>
   <script src="js/services/produto.service.js"></script>
+  <script src="js/services/toast.service.js"></script>
   <script src="js/filters/moeda.filter.js"></script>
   <script src="js/directives/progress-bar.directive.js"></script>
+  <script src="js/directives/toast.directive.js"></script>
   <script src="js/controllers/main.controller.js"></script>
 </body>
 </html>
