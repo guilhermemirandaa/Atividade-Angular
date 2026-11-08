@@ -32,13 +32,20 @@
       <p class="resultado">{{ filtrados.length }} produto(s) encontrado(s)</p>
 
       <ul class="produtos">
-        <li v-for="produto in filtrados" :key="produto.id" class="produto">
+        <li v-for="produto in produtosDaPagina" :key="produto.id" class="produto">
           <h3>{{ produto.nome }}</h3>
           <p>{{ produto.categoria }}</p>
           <p class="preco">{{ formatarMoeda(produto.preco) }}</p>
           <button class="botao" @click="adicionarAoCarrinho(produto)">Adicionar ao carrinho</button>
         </li>
       </ul>
+
+      <Pagination
+        v-if="totalPaginas > 1"
+        :total-paginas="totalPaginas"
+        :pagina-atual="paginaAtual"
+        @mudar="paginaAtual = $event"
+      />
     </section>
 
     <section id="detalhes" class="card" aria-labelledby="titulo-detalhes">
@@ -54,6 +61,11 @@
           {{ enviando ? 'Enviando...' : 'Simular upload' }}
         </button>
       </div>
+    </section>
+
+    <section id="faq" class="card" aria-labelledby="titulo-faq">
+      <h2 id="titulo-faq">Perguntas frequentes</h2>
+      <Accordion :itens="perguntas" />
     </section>
 
     <section class="card" aria-labelledby="titulo-notificacoes">
@@ -79,11 +91,13 @@ import ProgressBar from './components/ProgressBar.vue'
 import ToastContainer from './components/ToastContainer.vue'
 import Tabs from './components/Tabs.vue'
 import Dropdown from './components/Dropdown.vue'
+import Pagination from './components/Pagination.vue'
+import Accordion from './components/Accordion.vue'
 import { categorias, produtos, abas, perguntas } from './data/produtos.js'
 
 export default {
   name: 'App',
-  components: { ProgressBar, ToastContainer, Tabs, Dropdown },
+  components: { ProgressBar, ToastContainer, Tabs, Dropdown, Pagination, Accordion },
   data() {
     return {
       categorias: [],
@@ -92,6 +106,8 @@ export default {
       perguntas: [],
       categoria: 'Todas',
       busca: '',
+      paginaAtual: 1,
+      porPagina: 4,
       progresso: 0,
       enviando: false,
     }
@@ -104,6 +120,18 @@ export default {
         return daCategoria && daBusca
       })
     },
+    totalPaginas() {
+      return Math.ceil(this.filtrados.length / this.porPagina)
+    },
+    produtosDaPagina() {
+      const inicio = (this.paginaAtual - 1) * this.porPagina
+      return this.filtrados.slice(inicio, inicio + this.porPagina)
+    },
+  },
+  watch: {
+    busca() {
+      this.paginaAtual = 1
+    },
   },
   methods: {
     formatarMoeda(valor) {
@@ -111,6 +139,7 @@ export default {
     },
     trocarCategoria(categoria) {
       this.categoria = categoria
+      this.paginaAtual = 1
       this.$toast.mostrar('Categoria: ' + categoria, 'info')
     },
     adicionarAoCarrinho(produto) {
