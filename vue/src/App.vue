@@ -21,6 +21,8 @@
       <h2 id="titulo-produtos">Produtos</h2>
 
       <div class="filtros">
+        <Dropdown label="Categoria" :opcoes="categorias" @selecionar="trocarCategoria" />
+
         <div class="busca">
           <label for="busca">Buscar produto</label>
           <input id="busca" v-model="busca" type="search" placeholder="Ex.: fone" />
@@ -37,6 +39,11 @@
           <button class="botao" @click="adicionarAoCarrinho(produto)">Adicionar ao carrinho</button>
         </li>
       </ul>
+    </section>
+
+    <section id="detalhes" class="card" aria-labelledby="titulo-detalhes">
+      <h2 id="titulo-detalhes">Detalhes do produto</h2>
+      <Tabs :abas="abas" />
     </section>
 
     <section class="card" aria-labelledby="titulo-upload">
@@ -70,11 +77,13 @@
 <script>
 import ProgressBar from './components/ProgressBar.vue'
 import ToastContainer from './components/ToastContainer.vue'
+import Tabs from './components/Tabs.vue'
+import Dropdown from './components/Dropdown.vue'
 import { categorias, produtos, abas, perguntas } from './data/produtos.js'
 
 export default {
   name: 'App',
-  components: { ProgressBar, ToastContainer },
+  components: { ProgressBar, ToastContainer, Tabs, Dropdown },
   data() {
     return {
       categorias: [],
@@ -99,6 +108,10 @@ export default {
   methods: {
     formatarMoeda(valor) {
       return 'R$ ' + valor.toFixed(2).replace('.', ',')
+    },
+    trocarCategoria(categoria) {
+      this.categoria = categoria
+      this.$toast.mostrar('Categoria: ' + categoria, 'info')
     },
     adicionarAoCarrinho(produto) {
       this.$toast.mostrar(produto.nome + ' adicionado ao carrinho!', 'sucesso')
