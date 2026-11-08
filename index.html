@@ -29,6 +29,8 @@
       <h2 id="titulo-produtos">Produtos</h2>
 
       <div class="filtros">
+        <dropdown-menu label="Categoria" opcoes="categorias" ao-selecionar="trocarCategoria(opcao)"></dropdown-menu>
+
         <div class="busca">
           <label for="busca">Buscar produto</label>
           <input id="busca" type="search" ng-model="busca" placeholder="Ex.: fone">
@@ -87,6 +89,7 @@
   <script src="js/directives/progress-bar.directive.js"></script>
   <script src="js/directives/toast.directive.js"></script>
   <script src="js/directives/tabs.directive.js"></script>
+  <script src="js/directives/dropdown.directive.js"></script>
   <script src="js/controllers/main.controller.js"></script>
 </body>
 </html>

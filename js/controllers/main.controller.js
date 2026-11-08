@@ -5,6 +5,7 @@ angular.module('loja.controllers').controller('MainController', function (
   produtoService,
   toastService
 ) {
+  $scope.categorias = produtoService.categorias
   $scope.abas = produtoService.abas
 
   $scope.categoria = 'Todas'
@@ -13,6 +14,11 @@ angular.module('loja.controllers').controller('MainController', function (
   $scope.filtrados = function () {
     var porCategoria = produtoService.filtrarPorCategoria($scope.categoria)
     return $filter('filter')(porCategoria, { nome: $scope.busca })
+  }
+
+  $scope.trocarCategoria = function (categoria) {
+    $scope.categoria = categoria
+    toastService.mostrar('Categoria: ' + categoria, 'info')
   }
 
   $scope.adicionarAoCarrinho = function (produto) {
