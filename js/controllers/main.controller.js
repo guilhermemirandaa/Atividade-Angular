@@ -5,6 +5,8 @@ angular.module('loja.controllers').controller('MainController', function (
   produtoService,
   toastService
 ) {
+  $scope.abas = produtoService.abas
+
   $scope.categoria = 'Todas'
   $scope.busca = ''
 
