@@ -33,20 +33,27 @@
 
         <div class="busca">
           <label for="busca">Buscar produto</label>
-          <input id="busca" type="search" ng-model="busca" placeholder="Ex.: fone">
+          <input id="busca" type="search" ng-model="busca" ng-change="voltarPrimeiraPagina()" placeholder="Ex.: fone">
         </div>
       </div>
 
       <p class="resultado">{{ filtrados().length }} produto(s) encontrado(s)</p>
 
       <ul class="produtos">
-        <li class="produto" ng-repeat="produto in filtrados()">
+        <li class="produto" ng-repeat="produto in filtrados() | limitTo:porPagina:inicio()">
           <h3>{{ produto.nome }}</h3>
           <p>{{ produto.categoria }}</p>
           <p class="preco">{{ produto.preco | moeda }}</p>
           <button class="botao" ng-click="adicionarAoCarrinho(produto)">Adicionar ao carrinho</button>
         </li>
       </ul>
+
+      <pagination
+        ng-if="totalPaginas() > 1"
+        total-paginas="totalPaginas()"
+        pagina-atual="paginaAtual"
+        ao-mudar="mudarPagina(pagina)"
+      ></pagination>
     </section>
 
     <section id="detalhes" class="card" aria-labelledby="titulo-detalhes">
@@ -90,6 +97,7 @@
   <script src="js/directives/toast.directive.js"></script>
   <script src="js/directives/tabs.directive.js"></script>
   <script src="js/directives/dropdown.directive.js"></script>
+  <script src="js/directives/pagination.directive.js"></script>
   <script src="js/controllers/main.controller.js"></script>
 </body>
 </html>

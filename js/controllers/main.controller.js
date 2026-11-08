@@ -10,14 +10,33 @@ angular.module('loja.controllers').controller('MainController', function (
 
   $scope.categoria = 'Todas'
   $scope.busca = ''
+  $scope.paginaAtual = 1
+  $scope.porPagina = 4
 
   $scope.filtrados = function () {
     var porCategoria = produtoService.filtrarPorCategoria($scope.categoria)
     return $filter('filter')(porCategoria, { nome: $scope.busca })
   }
 
+  $scope.totalPaginas = function () {
+    return Math.ceil($scope.filtrados().length / $scope.porPagina)
+  }
+
+  $scope.inicio = function () {
+    return ($scope.paginaAtual - 1) * $scope.porPagina
+  }
+
+  $scope.mudarPagina = function (pagina) {
+    $scope.paginaAtual = pagina
+  }
+
+  $scope.voltarPrimeiraPagina = function () {
+    $scope.paginaAtual = 1
+  }
+
   $scope.trocarCategoria = function (categoria) {
     $scope.categoria = categoria
+    $scope.voltarPrimeiraPagina()
     toastService.mostrar('Categoria: ' + categoria, 'info')
   }
 
